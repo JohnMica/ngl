@@ -6,7 +6,7 @@
 
 import {
   Color, Vector3, Matrix4,
-  FrontSide, BackSide, DoubleSide, 
+  FrontSide, BackSide, DoubleSide,
   // VertexColors,
   NoBlending,
   BufferGeometry, BufferAttribute,
@@ -15,7 +15,7 @@ import {
   ShaderMaterial
 } from 'three'
 
-import { Log } from '../globals'
+import { Log, Debug } from '../globals'
 import { createParams, getTypedArray, getUintArray } from '../utils'
 import { NumberArray } from '../types'
 import { getShader, ShaderDefines } from '../shader/shader-utils.js'
@@ -254,7 +254,7 @@ class Buffer {
       new BufferAttribute(index, 1)
     )
     const nindex = this.geometry.getIndex();
-    if (!nindex) { Log.error('Index is null'); return; }
+    if (!nindex) {   if (Debug) Log.error('Index is null'); return; }
     nindex.setUsage(this.dynamic ? WebGLRenderingContext.DYNAMIC_DRAW : 0)
   }
 
@@ -304,9 +304,9 @@ class Buffer {
     pm.vertexColors = true
     pm.extensions.fragDepth = this.isImpostor
 
-    ;(m as any).clipNear = this.parameters.clipNear
-    ;(wm as any).clipNear = this.parameters.clipNear
-    ;(pm as any).clipNear = this.parameters.clipNear
+    ; (m as any).clipNear = this.parameters.clipNear
+    ; (wm as any).clipNear = this.parameters.clipNear
+    ; (pm as any).clipNear = this.parameters.clipNear
 
     this.material = m
     this.wireframeMaterial = wm
@@ -445,7 +445,7 @@ class Buffer {
       )
     } else {
       const index = this.wireframeGeometry.getIndex()
-      if (!index) { Log.error('Index is null'); return; }
+      if (!index) {  if (Debug) Log.error('Index is null'); return; }
       index.set(this.wireframeIndex)
       index.needsUpdate = this.wireframeIndexCount > 0
       index.updateRange.count = this.wireframeIndexCount
@@ -584,7 +584,7 @@ class Buffer {
 
       if (a.value) {
         if (arraySize !== a.value.length) {
-          Log.error('attribute value has wrong length', name)
+          // if (Debug) Log.error('attribute value has wrong length', name)
         }
         buf = a.value
       } else {
@@ -714,7 +714,7 @@ class Buffer {
 
       if (name === 'index') {
         const index = geometry.getIndex()
-        if (!index) { Log.error('Index is null'); continue; }
+        if (!index) {   if (Debug) Log.error('Index is null'); continue; }
         geometry.setDrawRange(0, Infinity)
 
         if (length > index.array.length) {
@@ -861,10 +861,10 @@ class Buffer {
    * Customize JSON serialization to avoid circular references
    */
   toJSON () {
-    var result: any = {};
-    for (var x in this) {
-      if (x !== "group" && x !== "wireframeGroup" && x != "pickingGroup"
-         && x !== "picking") {
+    let result: any = {};
+    for (let x in this) {
+      if (x !== 'group' && x !== 'wireframeGroup' && x !== 'pickingGroup'
+         && x !== 'picking') {
         result[x] = this[x];
       }
     }

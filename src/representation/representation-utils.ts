@@ -18,7 +18,7 @@ import DotRepresentation from './dot-representation'
 import SliceRepresentation from './slice-representation'
 
 function logReprUnknown (type: string) {
-  Log.error(`makeRepresentation: representation type ${type} unknown`)
+  // if (Debug) Log.error(`makeRepresentation: representation type ${type} unknown`)
 }
 
 export function makeRepresentation (type: string, object: any, viewer: Viewer, params: any) {  // TODO
@@ -59,7 +59,7 @@ export function makeRepresentation (type: string, object: any, viewer: Viewer, p
   } else if (type === 'buffer') {
     ReprClass = BufferRepresentation
   } else {
-    Log.error('makeRepresentation: object ' + object + ' unknown')
+    // if (Debug) Log.error('makeRepresentation: object ' + object + ' unknown')
     return
   }
 

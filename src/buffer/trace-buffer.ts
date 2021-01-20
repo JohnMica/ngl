@@ -7,10 +7,10 @@
 import '../shader/Line.vert'
 import '../shader/Line.frag'
 
-import { Log } from '../globals'
+import { Log, Debug } from '../globals'
 import Buffer, { BufferParameters, BufferData } from './buffer'
 
-function getSize(data: BufferData){
+function getSize(data: BufferData) {
   const n = data.position!.length / 3
   const n1 = n - 1
   return n1 * 3 * 2
@@ -58,7 +58,7 @@ class TraceBuffer extends Buffer {
     }
 
     if (!position && !color) {
-      Log.warn('TraceBuffer.prototype.setAttributes no data')
+       if (Debug) Log.warn('TraceBuffer.prototype.setAttributes no data')
       return
     }
 

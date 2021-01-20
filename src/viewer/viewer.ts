@@ -281,7 +281,7 @@ export default class Viewer {
     this._initScene()
 
     if (this._initRenderer() === false) {
-      Log.error('Viewer: could not initialize renderer')
+      // if (Debug) Log.error('Viewer: could not initialize renderer')
       return
     }
 
@@ -958,7 +958,7 @@ export default class Viewer {
       this.render()
       this.isStill = true
       this.sampleLevel = currentSampleLevel
-      if (Debug) Log.log('rendered still frame')
+      // if (Debug) Log.log('rendered still frame')
     }
 
     window.requestAnimationFrame(this.animate)
@@ -1315,7 +1315,7 @@ export default class Viewer {
 
   render (picking = false) {
     if (this.rendering) {
-      Log.warn("'tried to call 'render' from within 'render'")
+      // if (Debug) Log.warn("'tried to call 'render' from within 'render'")
       return
     }
 

@@ -201,7 +201,7 @@ class MrcParser extends VolumeParser {
         }
       }
     } else {
-      Log.error('MrcParser unknown mode', header.MODE)
+      // if (Debug) Log.error('MrcParser unknown mode', header.MODE)
     }
 
     v.setData(data, header.NX, header.NY, header.NZ)

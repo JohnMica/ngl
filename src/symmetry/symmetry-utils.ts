@@ -6,7 +6,7 @@
 
 import { Matrix4 } from 'three'
 
-import { Log } from '../globals'
+import { Log, Debug } from '../globals'
 import { EncodedSymOp, SymOpCode } from './symmetry-constants'
 
 const reInteger = /^[1-9]$/
@@ -68,7 +68,7 @@ export function getSymmetryOperations (spacegroup: string) {
             me[ 12 + row ] = integer
           }
         } else {
-          Log.warn(`getSymmetryOperations: unknown token '${c}'`)
+           if (Debug) Log.warn(`getSymmetryOperations: unknown token '${c}'`)
         }
       }
 

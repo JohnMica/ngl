@@ -51,13 +51,13 @@ export default class _Worker {
         if (onerror) {
           onerror.call(this.worker, event)
         } else {
-          Log.error('Worker.onerror', postId, name, event)
+          // if (Debug) Log.error('Worker.onerror', postId, name, event)
         }
 
         delete this.onmessageDict[ postId ]
         delete this.onerrorDict[ postId ]
       } else {
-        Log.error('Worker.onerror', name, event)
+        // if (Debug) Log.error('Worker.onerror', name, event)
       }
     }
   }
@@ -75,7 +75,7 @@ export default class _Worker {
     try {
       this.worker.postMessage(aMessage, transferList)
     } catch (error) {
-      Log.error('worker.post:', error)
+      // if (Debug) Log.error('worker.post:', error)
       this.worker.postMessage(aMessage)
     }
 

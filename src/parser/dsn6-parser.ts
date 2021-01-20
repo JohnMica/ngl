@@ -113,7 +113,7 @@ class Dsn6Parser extends VolumeParser {
 
     v.header = header
 
-    if (Debug) Log.log(header, divisor, summand)
+    // if (Debug) Log.log(header, divisor, summand)
 
     const data = new Float32Array(
       header.xExtent * header.yExtent * header.zExtent

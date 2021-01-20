@@ -275,7 +275,7 @@ class Stage {
   }
 
   log (msg: string) {
-    console.log('STAGE LOG', msg)
+    if (Debug) console.log('STAGE LOG', msg)
     this.logList.push(msg)
   }
 
@@ -520,7 +520,7 @@ class Stage {
    */
   addComponent (component: Component) {
     if (!component) {
-      Log.warn('Stage.addComponent: no component given')
+      // if (Debug) Log.warn('Stage.addComponent: no component given')
       return
     }
 
@@ -540,7 +540,7 @@ class Stage {
       return component
     }
 
-    Log.warn('no component for object type', object.type)
+    // if (Debug) Log.warn('no component for object type', object.type)
   }
 
   /**

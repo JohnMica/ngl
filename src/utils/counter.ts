@@ -4,7 +4,7 @@
  * @private
  */
 
-import { Log } from '../globals'
+import { Log, Debug } from '../globals'
 
 import * as signalsWrapper from 'signals'
 
@@ -49,7 +49,7 @@ class Counter {
     this.signals.countChanged.dispatch(delta, this.count)
 
     if (this.count < 0) {
-      Log.warn('Counter.count below zero', this.count)
+      if (Debug) Log.warn('Counter.count below zero', this.count)
     }
   }
 

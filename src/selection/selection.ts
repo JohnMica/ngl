@@ -56,7 +56,7 @@ class Selection {
     try {
       this.selection = parseSele(string)
     } catch (e) {
-      // Log.error( e.stack );
+      // // if (Debug) Log.error( e.stack );
       this.selection = { 'error': e.message }
     }
     const selection = this.selection

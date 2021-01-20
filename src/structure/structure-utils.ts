@@ -366,7 +366,7 @@ export function getChainname (index: number) {
     k += 1
   }
   if (k >= 5) {
-    Log.warn('chainname overflow')
+    // if (Debug) Log.warn('chainname overflow')
   }
   return chainname
 }
@@ -588,7 +588,7 @@ export function calculateResidueBonds (r: ResidueProxy) {
   const bondOrders = []
 
   if (count > 500) {
-    if (Debug) Log.warn('more than 500 atoms, skip residue for auto-bonding', r.qualifiedName())
+    if (Debug)   Log.warn('more than 500 atoms, skip residue for auto-bonding', r.qualifiedName())
   } else {
     if (count > 50) {
       const kdtree = new Kdtree(r, true)
@@ -666,7 +666,7 @@ export function calculateBondsWithin (structure: Structure, onlyAddRung = false)
       const offset = r.atomOffset
 
       if (count > 500) {
-        Log.warn('more than 500 atoms, skip residue for auto-bonding', r.qualifiedName())
+        // if (Debug) Log.warn('more than 500 atoms, skip residue for auto-bonding', r.qualifiedName())
         return
       }
 

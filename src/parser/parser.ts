@@ -18,9 +18,9 @@ class Parser {
   name: string
   path: string
   [k: string]: any
-  
+
   constructor (streamer: Streamer, params: Partial<ParserParameters>) {
-    var p = params || {}
+    let p = params || {}
 
     this.streamer = streamer
 
@@ -48,7 +48,7 @@ class Parser {
   _beforeParse () {}
 
   _afterParse () {
-    if (Debug) Log.log(this[ this.__objName ])
+      if (Debug) Log.log(this[ this.__objName ])
   }
 }
 

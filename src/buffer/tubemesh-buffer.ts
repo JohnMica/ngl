@@ -11,7 +11,7 @@ import { defaults, getUintArray } from '../utils'
 import { serialArray } from '../math/array-utils'
 import MeshBuffer from './mesh-buffer'
 import { BufferDefaultParameters, BufferData } from './buffer'
-import {Log} from "../globals";
+import {Log, Debug} from "../globals";
 
 const vTangent = new Vector3()
 const vMeshNormal = new Vector3()
@@ -54,6 +54,7 @@ function getData (data: TubeMeshBufferData, params: Partial<TubeMeshBufferParame
  * Tube mesh buffer. Draws a tube.
  */
 class TubeMeshBuffer extends MeshBuffer {
+  [x: string]: any
   get defaultParameters() { return TubeMeshBufferDefaultParameters }
   parameters: TubeMeshBufferParameters
 
@@ -285,7 +286,7 @@ class TubeMeshBuffer extends MeshBuffer {
 
   makeIndex () {
     const index = this.geometry.getIndex()
-    if (!index) { Log.error('Index is null'); return; }
+    if (!index) {   if (Debug) Log.error('Index is null'); return; }
     const meshIndex = index.array as Uint32Array|Uint16Array
 
     const n = this.size2

@@ -12,7 +12,7 @@ import { serialBlockArray } from '../math/array-utils.js'
 import { applyMatrix3toVector3array, applyMatrix4toVector3array } from '../math/vector-utils.js'
 import MeshBuffer from './mesh-buffer.js'
 import { BufferParameters, BufferData } from './buffer'
-import {Log} from "../globals";
+import {Log, Debug} from "../globals";
 
 const matrix = new Matrix4()
 const normalMatrix = new Matrix3()
@@ -51,6 +51,7 @@ function getData(data: BufferData, geo: BufferGeometry){
  * @interface
  */
 abstract class GeometryBuffer extends MeshBuffer {
+  [x: string]: any
   updateNormals = false
 
   geoPosition: Float32Array
@@ -103,7 +104,7 @@ abstract class GeometryBuffer extends MeshBuffer {
 
     if (geoIndex) {
       const index = this.geometry.getIndex()
-      if (!index) { Log.error('Index is null'); return; }
+      if (!index) {   if (Debug) Log.error('Index is null'); return; }
       this.meshIndex = index.array as Uint32Array|Uint16Array
       this.makeIndex()
     }

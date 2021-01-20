@@ -4,7 +4,7 @@
  * @private
  */
 
-import { Log, DatasourceRegistry } from '../globals'
+import { Log, DatasourceRegistry, Debug } from '../globals'
 import { getProtocol } from '../utils'
 import { getFileInfo } from '../loader/loader-utils'
 import Datasource from './datasource'
@@ -35,7 +35,7 @@ class RcsbDatasource extends Datasource {
     } else if (!info.ext) {
       url = mmtfFullUrl + pdbid
     } else {
-      Log.warn('unsupported ext', info.ext)
+        if (Debug) Log.warn('unsupported ext', info.ext)
       url = mmtfFullUrl + pdbid
     }
     return getProtocol() + url

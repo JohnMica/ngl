@@ -92,21 +92,21 @@ class Superposition {
     multiply3x3(this.R, this.U, this.VH)
 
     if (mat3x3determinant(this.R) < 0.0) {
-      if (Debug) Log.log('R not a right handed system')
+      // if (Debug) Log.log('R not a right handed system')
 
       multiply3x3(this.tmp, this.c, this.VH)
       multiply3x3(this.R, this.U, this.tmp)
     }
 
-    //get the transformation matrix
+    // get the transformation matrix
 
-    const transformMat_ = new Matrix(4,4)
-    const tmp_1 = new Matrix(4,4)
-    const tmp_2 = new Matrix(4,4)
+    const transformMat_ = new Matrix(4, 4)
+    const tmp_1 = new Matrix(4, 4)
+    const tmp_2 = new Matrix(4, 4)
 
-    const sub = new Matrix(4,4)
-    const mult = new Matrix(4,4)
-    const add = new Matrix(4,4)
+    const sub = new Matrix(4, 4)
+    const mult = new Matrix(4, 4)
+    const add = new Matrix(4, 4)
 
     const R = this.R.data
     const M1 = this.mean1
@@ -127,12 +127,12 @@ class Superposition {
                    0, 0, 1, M2[2],
                    0, 0, 0, 1 ])
 
-    transpose(tmp_1,sub)
-    multiplyABt(transformMat_,mult,tmp_1)
-    transpose(tmp_2,transformMat_)
-    multiplyABt(tmp_1,add,tmp_2)
+    transpose(tmp_1, sub)
+    multiplyABt(transformMat_, mult, tmp_1)
+    transpose(tmp_2, transformMat_)
+    multiplyABt(tmp_1, add, tmp_2)
 
-    transpose(transformMat_,tmp_1)
+    transpose(transformMat_, tmp_1)
     this.transformationMatrix.elements = transformMat_.data as unknown as number[]
 
   }
@@ -160,7 +160,7 @@ class Superposition {
         }
       })
     } else if (atoms instanceof Float32Array) {
-      for (; i < d; i += c){
+      for (; i < d; i += c) {
         if (i < d) {
           cd[ i ] = atoms[ i ]
           cd[ i + 1 ] = atoms[ i + 1 ]
@@ -169,7 +169,7 @@ class Superposition {
         }
       }
     } else {
-      Log.warn('prepCoords: input type unknown')
+      // if (Debug) Log.warn('prepCoords: input type unknown')
     }
   }
 
@@ -186,7 +186,7 @@ class Superposition {
     }
 
     const coords = new Matrix(4, n)
-    const tCoords = new Matrix(n,4)
+    const tCoords = new Matrix(n, 4)
 
     // prep coords
 
@@ -196,15 +196,15 @@ class Superposition {
 
     const transform = this.transformationMatrix
     const det = transform.determinant()
-    if (!det){
+    if (!det) {
       return det
     }
 
     // do transform
 
-    const mult = new Matrix(4,4)
+    const mult = new Matrix(4, 4)
     mult.data = transform.elements as unknown as Float32Array
-    multiply(tCoords,coords,mult)
+    multiply(tCoords, coords, mult)
 
     let i = 0
     const cd = tCoords.data
@@ -216,7 +216,7 @@ class Superposition {
           i += 4
         })
 
-        //update transformation matrices for each assembly
+        // update transformation matrices for each assembly
 
         const invertTrasform = new Matrix4()
         invertTrasform.getInverse(transform)
@@ -228,9 +228,9 @@ class Superposition {
           if (biomolDict.hasOwnProperty(key)) {
             let assembly = biomolDict[key]
 
-            assembly.partList.forEach(function(part){
+            assembly.partList.forEach(function(part) {
 
-              part.matrixList.forEach(function(mat){
+              part.matrixList.forEach(function(mat) {
 
                 mat.premultiply(transform)
                 mat.multiply(invertTrasform)
@@ -242,7 +242,7 @@ class Superposition {
     } else if (atoms instanceof Float32Array) {
 
       const n4 = n * 4
-      for (; i < n4; i += 4){
+      for (; i < n4; i += 4) {
 
         atoms[ i ] = cd[ i ]
         atoms[ i + 1 ] = cd[ i + 1 ]
@@ -250,7 +250,7 @@ class Superposition {
 
       }
     } else {
-      Log.warn('transform: input type unknown')
+        if (Debug) Log.warn('transform: input type unknown')
     }
 
     return this.transformationMatrix

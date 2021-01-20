@@ -71,7 +71,7 @@ class DcdParser extends TrajectoryParser {
       }
     }
     if (intView[ 0 ] !== 84) {
-      Log.error('dcd bad format, header block start')
+      // if (Debug) Log.error('dcd bad format, header block start')
     }
     // format indicator, should read 'CORD'
     const formatString = String.fromCharCode(
@@ -79,7 +79,7 @@ class DcdParser extends TrajectoryParser {
       dv.getUint8(6), dv.getUint8(7)
     )
     if (formatString !== 'CORD') {
-      Log.error('dcd bad format, format string')
+      // if (Debug) Log.error('dcd bad format, format string')
     }
     let isCharmm = false
     let extraBlock = false
@@ -100,7 +100,7 @@ class DcdParser extends TrajectoryParser {
       header.DELTA = dv.getFloat64(44, ef)
     }
     if (intView[ 22 ] !== 84) {
-      Log.error('dcd bad format, header block end')
+      // if (Debug) Log.error('dcd bad format, header block end')
     }
     nextPos = nextPos + 21 * 4 + 8
 
@@ -109,24 +109,24 @@ class DcdParser extends TrajectoryParser {
     const titleLength = dv.getInt32(nextPos, ef)
     const titlePos = nextPos + 1
     if ((titleLength - 4) % 80 !== 0) {
-      Log.error('dcd bad format, title block start')
+      // if (Debug) Log.error('dcd bad format, title block start')
     }
     header.TITLE = uint8ToString(
       new Uint8Array(bin, titlePos, titleLength)
     )
     if (dv.getInt32(titlePos + titleLength + 4 - 1, ef) !== titleLength) {
-      Log.error('dcd bad format, title block end')
+      // if (Debug) Log.error('dcd bad format, title block end')
     }
     nextPos = nextPos + titleLength + 8
 
     // natom block
 
     if (dv.getInt32(nextPos, ef) !== 4) {
-      Log.error('dcd bad format, natom block start')
+      // if (Debug) Log.error('dcd bad format, natom block start')
     }
     header.NATOM = dv.getInt32(nextPos + 4, ef)
     if (dv.getInt32(nextPos + 8, ef) !== 4) {
-      Log.error('dcd bad format, natom block end')
+      // if (Debug) Log.error('dcd bad format, natom block end')
     }
     nextPos = nextPos + 4 + 8
 
@@ -134,7 +134,7 @@ class DcdParser extends TrajectoryParser {
 
     if (header.NAMNF > 0) {
       // TODO read coordinates and indices of fixed atoms
-      Log.error('dcd format with fixed atoms unsupported, aborting')
+      // if (Debug) Log.error('dcd format with fixed atoms unsupported, aborting')
       return
     }
 
@@ -160,7 +160,7 @@ class DcdParser extends TrajectoryParser {
       const coord = new Float32Array(natom * 3)
       for (let j = 0; j < 3; ++j) {
         if (dv.getInt32(nextPos, ef) !== natom4) {
-          Log.error('dcd bad format, coord block start', i, j)
+          // if (Debug) Log.error('dcd bad format, coord block start', i, j)
         }
         nextPos += 4 // block start
         const c = new Float32Array(bin, nextPos, natom)
@@ -169,7 +169,7 @@ class DcdParser extends TrajectoryParser {
         }
         nextPos += natom4
         if (dv.getInt32(nextPos, ef) !== natom4) {
-          Log.error('dcd bad format, coord block end', i, j)
+          // if (Debug) Log.error('dcd bad format, coord block end', i, j)
         }
         nextPos += 4 // block end
       }

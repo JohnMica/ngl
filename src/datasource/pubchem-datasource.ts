@@ -4,7 +4,7 @@
  * @private
  */
 
-import { Log, DatasourceRegistry } from '../globals'
+import { Log, DatasourceRegistry, Debug } from '../globals'
 import { getProtocol } from '../utils'
 import { getFileInfo } from '../loader/loader-utils'
 import Datasource from './datasource'
@@ -20,7 +20,7 @@ class PubchemDatasource extends Datasource {
     if (!info.ext || info.ext === 'sdf') {
       url = baseUrl + cid + suffixUrl
     } else {
-      Log.warn('unsupported ext', info.ext)
+       if (Debug) Log.warn('unsupported ext', info.ext)
       url = baseUrl + cid + suffixUrl
     }
     return getProtocol() + url

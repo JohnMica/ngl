@@ -6,7 +6,7 @@
 
 import { Signal } from 'signals'
 
-import { Log } from '../globals'
+import { Log, Debug } from '../globals'
 import { defaults } from '../utils'
 import { NumberArray } from '../types'
 import { circularMean, arrayMean } from '../math/array-utils'
@@ -347,7 +347,7 @@ class Trajectory {
   }
 
   _makeAtomIndices () {
-    Log.error('Trajectory._makeAtomIndices not implemented')
+    if (Debug) Log.error('Trajectory._makeAtomIndices not implemented')
   }
 
   _resetCache () {
@@ -511,7 +511,7 @@ class Trajectory {
    * @param {Function} callback - fired when the frame has been loaded
    */
   _loadFrame (i: number, callback?: Function) {
-    Log.error('Trajectory._loadFrame not implemented', i, callback)
+     if (Debug) Log.error('Trajectory._loadFrame not implemented', i, callback)
   }
 
   _updateStructure (i: number) {

@@ -168,7 +168,7 @@ class Alignment {
         }
       }
     } else {
-      Log.warn('Alignment: no subst matrix')
+      // if (Debug) Log.warn('Alignment: no subst matrix')
 
       return function scoreNoSubstMat (i: number, j: number) {
         const c1 = seq1[ i ]
@@ -226,7 +226,7 @@ class Alignment {
 
     if (Debug) Log.timeEnd('Alignment.calc')
 
-    if (Debug) Log.log(this.S, this.V, this.H)
+    // if (Debug) Log.log(this.S, this.V, this.H)
   }
 
   trace () {
@@ -252,8 +252,8 @@ class Alignment {
       this.score = this.H[i][j]
     }
 
-    if (Debug) Log.log('Alignment: SCORE', this.score)
-    if (Debug) Log.log('Alignment: S, V, H', this.S[i][j], this.V[i][j], this.H[i][j])
+    // if (Debug) Log.log('Alignment: SCORE', this.score)
+    // if (Debug) Log.log('Alignment: S, V, H', this.S[i][j], this.V[i][j], this.H[i][j])
 
     while (i > 0 && j > 0) {
       if (mat === 'S') {
@@ -303,7 +303,7 @@ class Alignment {
           --j
         }
       } else {
-        Log.error('Alignment: no matrix')
+        // if (Debug) Log.error('Alignment: no matrix')
       }
     }
 
@@ -321,7 +321,7 @@ class Alignment {
 
     if (Debug) Log.timeEnd('Alignment.trace')
 
-    if (Debug) Log.log([this.ali1, this.ali2])
+    // if (Debug) Log.log([this.ali1, this.ali2])
   }
 }
 

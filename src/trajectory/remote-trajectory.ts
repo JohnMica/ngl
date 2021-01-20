@@ -4,7 +4,7 @@
  * @private
  */
 
-import { Log, TrajectoryDatasource } from '../globals'
+import { Log, TrajectoryDatasource, Debug } from '../globals'
 import Structure from '../structure/structure'
 import Trajectory, { TrajectoryParameters } from './trajectory'
 
@@ -67,7 +67,7 @@ class RemoteTrajectory extends Trajectory {
     request.addEventListener('load', () => {
       const arrayBuffer = request.response
       if (!arrayBuffer) {
-        Log.error(`empty arrayBuffer for '${url}'`)
+          if (Debug) Log.error(`empty arrayBuffer for '${url}'`)
         return
       }
 

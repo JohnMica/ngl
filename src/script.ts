@@ -6,7 +6,7 @@
 
 import { Signal } from 'signals'
 
-import { Log } from './globals'
+import { Log, Debug } from './globals'
 import Stage from './stage/stage'
 
 export interface ScriptSignals {
@@ -43,7 +43,7 @@ class Script {
       /* eslint-disable no-new-func */
       this.fn = new Function('stage', '__name', '__path', '__dir', functionBody)
     } catch (e) {
-      Log.error('Script compilation failed', e)
+      // if (Debug) Log.error('Script compilation failed', e)
       this.fn = function () {}
     }
   }
@@ -59,7 +59,7 @@ class Script {
         this.fn.apply(null, [ stage, this.name, this.path, this.dir ])
         resolve()
       } catch (e) {
-        Log.error('Script.fn', e)
+        if (Debug) Log.error('Script.fn', e)
         reject(e)
       }
     })
